@@ -24,14 +24,17 @@ public class PairController {
     }
 
     @GetMapping("/longest")
-    public ResponseEntity<?> getLongestPlayingPair() {
-        List<Map<String, Object>> response = pairService.getLongestPlayingPairsWithNames();
-
-        if (!response.isEmpty()) {
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No player pair found.");
-        }
+    public List<Map<String, Object>> getPairsWithLongestPlaytime(){
+        return pairService.getPairsWithLongestPlaytime();
     }
+//    public ResponseEntity<?> getLongestPlayingPair() {
+//        List<Map<String, Object>> response = pairService.getLongestPlayingPairsWithNames();
+//
+//        if (!response.isEmpty()) {
+//            return ResponseEntity.ok(response);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body("No player pair found.");
+//        }
+//    }
 }
