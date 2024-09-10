@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -14,9 +17,17 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Team A ID cannot be null")
     private Long aTeamId;
+
+    @NotNull(message = "Team B ID cannot be null")
     private Long bTeamId;
+
+    @NotNull
+    @DateTimeFormat
     private LocalDate date;
+
+    @Size(min = 5, max = 7, message = "Score must be between 5 and 7 characters")
     private String score;
 
     public Long getId() {
@@ -27,19 +38,19 @@ public class Match {
         this.id = id;
     }
 
-    public Long getaTeamId() {
+    public Long getATeamId() {
         return aTeamId;
     }
 
-    public void setaTeamId(Long aTeamId) {
+    public void setATeamId(Long aTeamId) {
         this.aTeamId = aTeamId;
     }
 
-    public Long getbTeamId() {
+    public Long getBTeamId() {
         return bTeamId;
     }
 
-    public void setbTeamId(Long bTeamId) {
+    public void setBTeamId(Long bTeamId) {
         this.bTeamId = bTeamId;
     }
 

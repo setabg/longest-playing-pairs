@@ -1,6 +1,5 @@
 package com.example.longest_playing_pairs.controller;
 
-import com.example.longest_playing_pairs.repository.PlayerRepository;
 import com.example.longest_playing_pairs.service.PairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,18 +22,19 @@ public class PairController {
         this.pairService = pairService;
     }
 
+    /**
+     * Get the pairs of players who played together for the longest time.
+     * @return a list of pairs with their playtime details
+     */
     @GetMapping("/longest")
-    public List<Map<String, Object>> getPairsWithLongestPlaytime(){
-        return pairService.getPairsWithLongestPlaytime();
+    public ResponseEntity<List<Map<String, Object>>> getPairsWithLongestPlaytime() {
+        List<Map<String, Object>> pairs = pairService.getPairsWithLongestPlaytime();
+
+        if (pairs != null && !pairs.isEmpty()) {
+            return ResponseEntity.ok(pairs);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
     }
-//    public ResponseEntity<?> getLongestPlayingPair() {
-//        List<Map<String, Object>> response = pairService.getLongestPlayingPairsWithNames();
-//
-//        if (!response.isEmpty()) {
-//            return ResponseEntity.ok(response);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body("No player pair found.");
-//        }
-//    }
 }

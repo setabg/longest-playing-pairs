@@ -21,9 +21,7 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
             "JOIN Player p1 ON r1.player_id = p1.id " +
             "JOIN Player p2 ON r2.player_id = p2.id " +
             "WHERE r1.match_id = :matchId " +
-            "AND p1.teamid = p2.teamid " +
-            "AND r1.from_minutes IS NOT NULL AND r1.to_minutes IS NOT NULL " +
-            "AND r2.from_minutes IS NOT NULL AND r2.to_minutes IS NOT NULL",
+            "AND p1.teamid = p2.teamid ",
             nativeQuery = true)
     List<Object[]> findPlayerPairsWithLongestPlaytime(@Param("matchId") Long matchId);
 

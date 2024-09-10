@@ -2,18 +2,15 @@ package com.example.longest_playing_pairs.service;
 
 import com.example.longest_playing_pairs.entity.Player;
 import com.example.longest_playing_pairs.repository.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
 
-    @Autowired
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
@@ -22,16 +19,25 @@ public class PlayerService {
         return playerRepository.findAll();
     }
 
-    public String getPlayerNameById(Long playerId) {
-        return playerRepository.findById(playerId)
-                .map(Player::getFullName)
-                .orElse("Unknown Player");
+    public Player getPlayerById(Long id) {
+        return playerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Player not found with id " + id));
     }
 
-    public String getPlayerTeamById(Long playerId) {
-        return playerRepository.findById(playerId)
-                .map(Player::getTeamID)
-                .map(String::valueOf)
-                .orElse("Unknown Team");
+    public Player savePlayer(Player player) {
+        return playerRepository.save(player);
+    }
+
+    public void deletePlayer(Long id) {
+        playerRepository.deleteById(id);
+    }
+
+    public boolean existsById(Long id) {
+        return playerRepository.existsById(id);
+    }
+
+    // Method to save a list of players
+    public void savePlayers(List<Player> players) {
+        playerRepository.saveAll(players);
     }
 }

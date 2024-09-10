@@ -3,6 +3,7 @@ package com.example.longest_playing_pairs.controller;
 import com.example.longest_playing_pairs.entity.Match;
 import com.example.longest_playing_pairs.service.CSVMatchImporter;
 import com.example.longest_playing_pairs.service.MatchService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class MatchController {
     }
 
     @PostMapping
-    public Match createMatch(@RequestBody Match match) {
+    public Match createMatch(@Valid @RequestBody Match match) {
         return matchService.saveMatch(match);
     }
 
     @PutMapping("/{id}")
-    public Match updateMatch(@PathVariable Long id, @RequestBody Match match) {
+    public Match updateMatch(@PathVariable Long id, @Valid @RequestBody Match match) {
         match.setId(id);
         return matchService.saveMatch(match);
     }

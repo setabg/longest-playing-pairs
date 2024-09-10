@@ -50,8 +50,8 @@ public class CSVMatchImporter {
                 if (data.length >= 5) {
                     Match match = new Match();
                     match.setId(Long.parseLong(data[0].trim()));
-                    match.setaTeamId(Long.parseLong(data[1].trim()));
-                    match.setbTeamId(Long.parseLong(data[2].trim()));
+                    match.setATeamId(Long.parseLong(data[1].trim()));
+                    match.setBTeamId(Long.parseLong(data[2].trim()));
                     match.setDate(parseDate(data[3].trim())); // Parse date with multiple formats
                     match.setScore(data[4].trim());
 

@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Record {
@@ -12,9 +13,17 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Player ID cannot be null")
     private Long playerId;
+
+    @NotNull(message = "Match ID cannot be null")
     private Long matchId;
+
+    @Positive(message = "From minutes must be greater than 0")
     private Integer fromMinutes;
+
+    @Min(value = 0, message = "To minutes must be zero or positive")
+    @Max(value = 90, message = "To minutes must be less than or equal to 90")
     private Integer toMinutes;
 
     public Long getId() {
